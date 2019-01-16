@@ -3,7 +3,7 @@ package main
 import (
 	"go-web/daemon"
 	"go-web/db"
-	"go-web/migrations"
+	"go-web/db/migrations"
 	"os"
 )
 
