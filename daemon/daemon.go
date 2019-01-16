@@ -18,7 +18,7 @@ type Config struct {
 func Run(cfg *Config) error {
 	log.Printf("Starting, HTTP on %s\n", cfg.ListenSpec)
 
-	db, err := db.DbConnection(&cfg.Db)
+	db, err := db.InitDB(&cfg.Db)
 	if err != nil {
 		log.Printf("Error initialization database %v\n", err)
 		return err

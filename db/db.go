@@ -10,7 +10,7 @@ type DB struct {
 	*sqlx.DB
 }
 
-func DbConnection(cfg *Config) (*DB, error){
+func InitDB(cfg *Config) (*DB, error){
 	var dsn string
 
 	switch cfg.Driver {

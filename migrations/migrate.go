@@ -23,5 +23,5 @@ func RollBack() {
 
 func getDbConnection() (*db.DB, error) {
 	dbConfig := db.GetConfigs()
-	return db.DbConnection(dbConfig)
+	return db.InitDB(dbConfig)
 }
