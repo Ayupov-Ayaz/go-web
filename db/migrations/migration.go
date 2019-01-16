@@ -5,31 +5,31 @@ import (
 	"go-web/db"
 )
 
-func StartMigration() {
-	connect, err := getDbConnection()
-	if err != nil {
-		panic(err)
+func Migration(command string) {
+	if command == "--migrate" {
+		 err := startMigration()
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		 fmt.Println("Migration done")
+	} else if command == "--rollback" {
+		err := rollBack()
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		fmt.Println("Rollback done")
+	} else {
+		fmt.Printf("Неизвестная команда \"%s\"\n", command)
 	}
-	createTables(connect)
 }
 
-func RollBack() {
-	connect, err := getDbConnection()
+func startMigration()  error {
+	db, err := getDbConnection()
+
 	if err != nil {
-		panic(err)
+		return err
 	}
-	dropTables(connect)
-}
 
-func getDbConnection() (*db.DB, error) {
-	dbConfig := db.GetConfigs()
-	return db.InitDB(dbConfig)
-}
-
-/**
- 	Создание всех таблиц
- */
-func createTables(db *db.DB) error {
 	for _, schema := range allSchemas {
 		_, err := db.Query(schema.create)
 		if err != nil {
@@ -41,17 +41,25 @@ func createTables(db *db.DB) error {
 	return nil
 }
 
-/**
-	Удаление всех таблиц
- */
-func dropTables(db *db.DB) error {
+func rollBack() error {
+	db, err := getDbConnection()
+	if err != nil {
+		return err
+	}
+
 	for _, schema := range allSchemas {
 		_, err := db.Query(schema.drop)
 		if err != nil {
-			fmt.Println("Не удалось удалить таблицу:", schema.tableName, "\n", err.Error())
+			fmt.Println("Не удалось удалить таблицу:", schema.tableName, "\n")
+			return err
 		} else {
 			fmt.Printf("Таблица \"%s\" - успешно удалена \n", schema.tableName)
 		}
 	}
 	return nil
+}
+
+func getDbConnection() (*db.DB, error) {
+	dbConfig := db.GetConfigs()
+	return db.InitDB(dbConfig)
 }

@@ -10,14 +10,11 @@ import (
 func main() {
 	dbConfig := db.GetConfigs()
 
-	if os.Args[1] == "--migrate" {
-		migrations.StartMigration()
-		return
-	} else if os.Args[1] == "--drop-tables" {
-		migrations.RollBack()
+	// Если main запущен с аргументами, то это миграция
+	if len(os.Args) > 1 {
+		migrations.Migration(os.Args[1])
 		return
 	}
-
 
 	daemonConfig := daemon.Config{
 		ListenSpec: "localhost:8000",
