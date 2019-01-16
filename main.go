@@ -3,21 +3,25 @@ package main
 import (
 	"go-web/daemon"
 	"go-web/db"
+	"go-web/migrations"
+	"os"
 )
 
 func main() {
-	dbConfig := db.Config{
-		Driver: "mysql",
-		User: "tommy",
-		Password: "43",
-		Host: "127.0.0.1",
-		Database: "go_lang",
-		Port: 3306,
+	dbConfig := db.GetConfigs()
+
+	if os.Args[1] == "--migrate" {
+		migrations.StartMigration()
+		return
+	} else if os.Args[1] == "--drop-tables" {
+		migrations.RollBack()
+		return
 	}
+
 
 	daemonConfig := daemon.Config{
 		ListenSpec: "localhost:8000",
-		Db: dbConfig,
+		Db: *dbConfig,
 	}
 
 	daemon.Run(&daemonConfig)
