@@ -11,7 +11,10 @@ func New(db db) *Model{
 	}
 }
 
-func (m *Model)SelectAllUsers() ([]*User, error){
+func (m *Model) GetUsers() ([]*User, error) {
+	return db.SelectAllUsers(m.db)
+}
 
-	return nil, nil
+func (m *Model) GetUserById(id int64) (*User, error) {
+	return db.SelectUserById(m.db, id)
 }
