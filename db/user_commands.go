@@ -1,7 +1,7 @@
 package db
 
 import (
-	"go-web/model"
+	"github.com/Ayupov-Ayaz/go-web/model"
 )
 
 // Получение всех пользователей

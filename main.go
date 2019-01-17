@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	"go-web/daemon"
-	"go-web/db"
-	"go-web/db/migrations"
+	"github.com/Ayupov-Ayaz/go-web/daemon"
+	"github.com/Ayupov-Ayaz/go-web/db"
+	"github.com/Ayupov-Ayaz/go-web/db/migrations"
 	"log"
 	"net/http"
 	"os"
@@ -29,7 +29,7 @@ func main() {
 	setupHttpAssets(cfg)
 	//// Если main запущен с аргументами, то запускаем наши миграции
 	if len(os.Args) > 1 {
-		migrations.Migration(os.Args[1], cfg)
+		migrations.Migration(os.Args[1], cfg.Db)
 		os.Exit(-1)
 	}
 

@@ -1,8 +1,8 @@
 package daemon
 
 import (
-	"go-web/db"
-	"go-web/ui"
+	"github.com/Ayupov-Ayaz/go-web/db"
+	"github.com/Ayupov-Ayaz/go-web/ui"
 	"log"
 	"net"
 	"os"

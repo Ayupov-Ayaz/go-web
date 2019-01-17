@@ -1,7 +1,7 @@
 package ui
 
 import (
-	"go-web/model"
+	"github.com/Ayupov-Ayaz/go-web/model"
 	"net/http"
 )
 

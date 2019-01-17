@@ -2,19 +2,18 @@ package migrations
 
 import (
 	"fmt"
-	"go-web/daemon"
-	"go-web/db"
+	"github.com/Ayupov-Ayaz/go-web/db"
 )
 
-func Migration(command string, cfg *daemon.Config) {
+func Migration(command string, cfg *db.Config) {
 	if command == "--migrate" {
-		 err := startMigration(cfg.Db)
+		 err := startMigration(cfg)
 		if err != nil {
 			fmt.Println(err.Error())
 		}
 		 fmt.Println("Migration done")
 	} else if command == "--rollback" {
-		err := rollBack(cfg.Db)
+		err := rollBack(cfg)
 		if err != nil {
 			fmt.Println(err.Error())
 		}

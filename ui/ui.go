@@ -2,8 +2,8 @@ package ui
 
 import (
 	"fmt"
-	"go-web/db"
-	"go-web/model"
+	"github.com/Ayupov-Ayaz/go-web/db"
+	"github.com/Ayupov-Ayaz/go-web/model"
 	"net"
 	"net/http"
 	"time"

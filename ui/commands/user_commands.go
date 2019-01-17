@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"go-web/db"
-	"go-web/model"
+	"github.com/Ayupov-Ayaz/go-web/db"
+	"github.com/Ayupov-Ayaz/go-web/model"
 )
 
 func GetUsers(db *db.DB) ([]*model.User, error) {
