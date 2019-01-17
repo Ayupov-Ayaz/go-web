@@ -2,18 +2,19 @@ package migrations
 
 import (
 	"fmt"
+	"go-web/daemon"
 	"go-web/db"
 )
 
-func Migration(command string) {
+func Migration(command string, cfg *daemon.Config) {
 	if command == "--migrate" {
-		 err := startMigration()
+		 err := startMigration(cfg.Db)
 		if err != nil {
 			fmt.Println(err.Error())
 		}
 		 fmt.Println("Migration done")
 	} else if command == "--rollback" {
-		err := rollBack()
+		err := rollBack(cfg.Db)
 		if err != nil {
 			fmt.Println(err.Error())
 		}
@@ -23,8 +24,8 @@ func Migration(command string) {
 	}
 }
 
-func startMigration()  error {
-	db, err := getDbConnection()
+func startMigration(cfg *db.Config)  error {
+	db, err := getDbConnection(cfg)
 
 	if err != nil {
 		return err
@@ -41,8 +42,8 @@ func startMigration()  error {
 	return nil
 }
 
-func rollBack() error {
-	db, err := getDbConnection()
+func rollBack(cfg *db.Config) error {
+	db, err := getDbConnection(cfg)
 	if err != nil {
 		return err
 	}
@@ -59,7 +60,6 @@ func rollBack() error {
 	return nil
 }
 
-func getDbConnection() (*db.DB, error) {
-	dbConfig := db.GetConfigs()
-	return db.InitDB(dbConfig)
+func getDbConnection(cfg *db.Config) (*db.DB, error) {
+	return db.InitDB(cfg)
 }
