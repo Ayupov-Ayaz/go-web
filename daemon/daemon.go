@@ -1,8 +1,8 @@
 package daemon
 
 import (
-	"fmt"
 	"go-web/db"
+	"go-web/ui"
 	"log"
 	"net"
 	"os"
@@ -12,27 +12,26 @@ import (
 
 type Config struct {
 	ListenSpec string
-	Db db.Config
+	Db *db.Config
+	UI ui.Config
 }
 
 func Run(cfg *Config) error {
 	log.Printf("Starting, HTTP on %s\n", cfg.ListenSpec)
 
-	db, err := db.InitDB(&cfg.Db)
+	db, err := db.InitDB(cfg.Db)
+
 	if err != nil {
 		log.Printf("Error initialization database %v\n", err)
 		return err
 	}
 
-	// TODO:
 	l, err := net.Listen("tcp", cfg.ListenSpec)
 	if err != nil {
 		log.Printf("Error creating listener: %v\n", err)
 		return err
 	}
-
-	fmt.Println(db, l)
-	waitForSignal()
+	ui.Start(&cfg.UI, db, &l)
 	return nil
 }
 
