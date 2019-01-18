@@ -29,7 +29,7 @@ func Run(cfg *Config) {
 	if err != nil {
 		log.Printf(errorMessage, "net.Listen", err)
 	}
-	fmt.Printf("Starting server on %s", cfg.ListenSpec )
+	fmt.Printf("Starting server on %s \n", cfg.ListenSpec )
 	ui.Start(&cfg.UI, db, &l)
 }
 
