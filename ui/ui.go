@@ -19,6 +19,7 @@ func Start(cfg *Config, db *db.DB,  listner *net.Listener) {
 		WriteTimeout: 10 * time.Second,
 		MaxHeaderBytes: 1 << 16}
 
+	http.Handle("/assets/", http.StripPrefix(cfg.AssetsPrefix, http.FileServer(http.Dir(cfg.AssetsPath))))
 	m := model.New(db)
 
 	routes(m)

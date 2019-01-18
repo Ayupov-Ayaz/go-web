@@ -3,7 +3,7 @@ package ui
 import (
 	"fmt"
 	"github.com/Ayupov-Ayaz/go-web/model"
-	"io/ioutil"
+	"html/template"
 	"net/http"
 	"strconv"
 )
@@ -54,12 +54,16 @@ func RegisterHandler(m *model.Model) http.Handler {
 func ShowRegisterFormHandler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r * http.Request) {
 		// Обработка формы
-		b, err := ioutil.ReadFile("assets/views/registration/index.html")
+		t, err := template.ParseFiles("assets/views/header.html",
+											     "assets/views/registration/index.html",
+											     "assets/views/footer.html")
 		if err != nil {
 			panic(err)
 		}
 
 		// показываем нашу страницу
-		w.Write(b)
+		if err := t.ExecuteTemplate(w, "index", nil); err != nil {
+			fmt.Println(err.Error())
+		}
 	})
 }
