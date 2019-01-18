@@ -26,4 +26,6 @@ func Start(cfg *Config, db *db.DB,  listner *net.Listener) {
 
 func routes(m *model.Model) {
 	http.Handle("/", IndexHandler(m))
+	http.Handle("/sign/up", ShowRegisterFormHandler())
+	http.Handle("/registration", RegisterHandler(m))
 }
