@@ -23,3 +23,16 @@ func (db *DB) SelectUserById(id int64) (*model.User, error){
 	}
 	return user, nil
 }
+
+func (db *DB) InsertUser(user *model.User) (lastId int64, err error) {
+	query := "insert into users (login, password, email, age) values (:login, :password, :email, :age)"
+	result, err := db.NamedExec(query, user)
+	if err != nil {
+		return 0, err
+	}
+	if lastId, err := result.LastInsertId(); err != nil {
+		return 0, err
+	} else {
+		return lastId, nil
+	}
+}
