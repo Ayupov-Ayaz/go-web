@@ -14,7 +14,7 @@ import (
 type Config struct {
 	ListenSpec string
 	Db *db.Config
-	UI ui.Config
+	UI *ui.Config
 }
 
 func Run(cfg *Config) {
@@ -30,7 +30,7 @@ func Run(cfg *Config) {
 		log.Printf(errorMessage, "net.Listen", err)
 	}
 	fmt.Printf("Starting server on %s \n", cfg.ListenSpec )
-	ui.Start(&cfg.UI, db, &l)
+	ui.Start(cfg.UI, db, &l)
 }
 
 func waitForSignal() {

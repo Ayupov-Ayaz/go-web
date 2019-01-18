@@ -9,7 +9,8 @@ import (
 )
 
 type Config struct {
-	Assets http.FileSystem
+	AssetsPath string
+	AssetsPrefix string
 }
 
 func Start(cfg *Config, db *db.DB,  listner *net.Listener) {
