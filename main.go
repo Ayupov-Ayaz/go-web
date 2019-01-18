@@ -5,7 +5,6 @@ import (
 	"github.com/Ayupov-Ayaz/go-web/daemon"
 	"github.com/Ayupov-Ayaz/go-web/db"
 	"github.com/Ayupov-Ayaz/go-web/db/migrations"
-	"log"
 	"net/http"
 	"os"
 )
@@ -32,8 +31,5 @@ func setupHttpAssets(cfg *daemon.Config) {
 func main() {
 	cfg := processFlags()
 	setupHttpAssets(cfg)
-
-	if err := daemon.Run(cfg); err != nil {
-		log.Printf("Error in main: \n %s", err.Error())
-	}
+	daemon.Run(cfg)
 }

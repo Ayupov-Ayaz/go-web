@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"fmt"
 	"github.com/Ayupov-Ayaz/go-web/db"
 	"github.com/Ayupov-Ayaz/go-web/model"
 	"net"
@@ -22,7 +21,6 @@ func Start(cfg *Config, db *db.DB,  listner *net.Listener) {
 	m := model.New(db)
 
 	routes(m)
-	fmt.Println(server)
 	server.Serve(*listner)
 }
 
