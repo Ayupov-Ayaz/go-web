@@ -31,7 +31,7 @@ func GetPostById(db *db.DB) *graphql.Field {
 	}
 }
 
-func GetPostByName(db *db.DB) *graphql.Field {
+func GetPostByTitle(db *db.DB) *graphql.Field {
 	return &graphql.Field{
 		// TODO: реализовать
 	}

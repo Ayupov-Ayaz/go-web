@@ -7,7 +7,7 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
-// Все возможные вариации для мутаций
+// Все возможные вариации запросов
 func NewGraphQlSchema(db *db.DB) graphql.Schema {
 	var schema, _ = graphql.NewSchema(graphql.SchemaConfig{
 		Query: getQueryType(db),
@@ -21,8 +21,10 @@ func getQueryType(db *db.DB) *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "Query",
 		Fields: graphql.Fields{
+			// post
 			"post_by_id"	: queries.GetPostById(db),
-			"post_by_name"  : queries.GetPostByName(db),
+			"post_by_title"  : queries.GetPostByTitle(db),
+			// user
 		},
 	})
 }
