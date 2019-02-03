@@ -17,7 +17,7 @@ type Config struct {
 func Run(cfg *Config) {
 	errorMessage := "DB error: in daemon/daemon.go (%s) \n %s"
 
-	db, err := db.InitDB(cfg.Db)
+	dbConn, err := db.InitDB(cfg.Db)
 	if err != nil {
 		log.Printf(errorMessage, "InitDB", err.Error())
 	}
@@ -27,5 +27,5 @@ func Run(cfg *Config) {
 		log.Printf(errorMessage, "net.Listen", err)
 	}
 	fmt.Printf("Starting server on %s \n", cfg.ListenSpec )
-	ui.Start(cfg.UI, db, &l)
+	ui.Start(cfg.UI, dbConn, &l)
 }
