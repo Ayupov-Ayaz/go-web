@@ -33,6 +33,7 @@ func getMutationType(db *db.DB) *graphql.Object {
 		Name: "Mutations",
 		Fields: graphql.Fields{
 			"create_post" : mutation.CreatePost(db),
+			"update_post" : mutation.UpdatePost(db),
 		},
 	})
 }
