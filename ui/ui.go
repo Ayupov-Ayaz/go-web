@@ -44,3 +44,10 @@ func executorQuery(query string, schema graphql.Schema) *graphql.Result {
 	}
 	return result
 }
+
+func GetUiConfig() *Config{
+	return &Config{
+		AssetsPrefix: "/assets/",
+		AssetsPath: "./assets/",
+	}
+}

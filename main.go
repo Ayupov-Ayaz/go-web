@@ -1,15 +1,16 @@
 package main
 
 import (
-	"github.com/Ayupov-Ayaz/go-web/configs"
 	"github.com/Ayupov-Ayaz/go-web/daemon"
+	"github.com/Ayupov-Ayaz/go-web/db"
 	"github.com/Ayupov-Ayaz/go-web/db/migrations"
+	"github.com/Ayupov-Ayaz/go-web/ui"
 	"os"
 )
 
 func processFlags() *daemon.Config {
 	cfg := &daemon.Config{}
-	cfg.Db = configs.GetDbConfig()
+	cfg.Db = db.GetDbConfig()
 
 	//// Если main запущен с аргументами, то запускаем наши миграции
 	if len(os.Args) > 1 {
@@ -18,7 +19,7 @@ func processFlags() *daemon.Config {
 	}
 
 	cfg.ListenSpec = "localhost:3000"
-	cfg.UI = configs.GetUiConfig()
+	cfg.UI = ui.GetUiConfig()
 	return cfg
 }
 
