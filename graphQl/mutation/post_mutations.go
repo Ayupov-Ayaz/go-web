@@ -20,10 +20,11 @@ func CreatePost(db *db.DB) *graphql.Field {
 
 		},
 		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
+			authorId := p.Args["author"].(int)
 			post := &model.Post{
 				Title: p.Args["title"].(string),
 				Description: p.Args["description"].(string),
-				Author: p.Args["author_id"].(int64),
+				Author: int64(authorId),
 			}
 			return db.InsertPost(post)
 		},

@@ -13,19 +13,19 @@ func (db *DB) SelectPostById(id int64) (*model.Post, error) {
 		return nil, err
 	}
 	return post, nil
-
 }
-
-func (db *DB) InsertPost(post *model.Post) (lastId int64, err error) {
+// localhost:port/graphql?query=mutation{create_post(title:"title",description:"description",author:1){id,title}}
+func (db *DB) InsertPost(post *model.Post) (user *model.Post, err error) {
 	query := "insert into posts (title, description, author_id) values (:title, :description, :author_id)"
 	result, err := db.NamedExec(query, post)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 	if lastId, err := result.LastInsertId(); err != nil {
-		return 0, err
+		return nil, err
 	} else {
-		return lastId, nil
+		lastId = int64(lastId)
+		return db.SelectPostById(lastId)
 	}
 }
 
