@@ -22,7 +22,7 @@ func getQueryType(db *db.DB) *graphql.Object {
 		Name: "Query",
 		Fields: graphql.Fields{
 			"post_by_id"	: queries.GetPostById(db),
-			"post_by_name"  : queries.GetPostByName(db),
+			"post_by_title"  : queries.GetPostByTitle(db),
 		},
 	})
 }

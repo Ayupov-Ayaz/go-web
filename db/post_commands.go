@@ -28,3 +28,12 @@ func (db *DB) InsertPost(post *model.Post) (lastId int64, err error) {
 		return lastId, nil
 	}
 }
+
+func (db *DB) SelectPostByTitle(title string) (*model.Post, error) {
+	post := &model.Post{}
+	query := "SELECT * FROM posts where title = ?"
+	if err := db.Get(post, query, title); err != nil {
+		return nil, err
+	}
+	return post, nil
+}

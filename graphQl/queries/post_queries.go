@@ -31,8 +31,20 @@ func GetPostById(db *db.DB) *graphql.Field {
 	}
 }
 
-func GetPostByName(db *db.DB) *graphql.Field {
+func GetPostByTitle(db *db.DB) *graphql.Field {
 	return &graphql.Field{
-		// TODO: реализовать
+		Type: types.GetPostType(),
+		Description: "Get post by name",
+		Args: graphql.FieldConfigArgument{
+			"title": &graphql.ArgumentConfig{
+				Type: graphql.String,
+			},
+		},
+		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
+			if title, ok := p.Args["title"].(string); ok {
+				return db.SelectPostByTitle(title)
+			}
+			return nil, nil
+		},
 	}
 }
