@@ -27,3 +27,15 @@ func GqNewNonNullInt() *graphql.ArgumentConfig {
 		Type: graphql.NewNonNull(graphql.Int),
 	}
 }
+
+func GqNewNullString() *graphql.ArgumentConfig {
+	return &graphql.ArgumentConfig {
+		Type: graphql.String,
+	}
+}
+
+func GqNewNullInt() *graphql.ArgumentConfig {
+	return &graphql.ArgumentConfig {
+		Type: graphql.Int,
+	}
+}
