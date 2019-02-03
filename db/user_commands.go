@@ -16,7 +16,7 @@ func  (db *DB) SelectAllUsers() (*[]model.User, error) {
 
 func (db *DB) SelectUserById(id int64) (*model.User, error){
 	user := &model.User{}
-	query := "select id, login, email, age from users limit ?"
+	query := "select id, login, email, age from users where id = ?"
 	err := db.Get(user, query, id)
 	if err != nil {
 		return nil, err
