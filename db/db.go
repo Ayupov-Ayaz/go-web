@@ -2,8 +2,9 @@ package db
 
 import (
 	"fmt"
-	"github.com/jmoiron/sqlx"
+	"github.com/Ayupov-Ayaz/go-web/errors"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
 )
 
 type DB struct {
@@ -31,7 +32,7 @@ func InitDB(cfg *Config) (*DB, error){
 			cfg.Database,
 		)
 	default:
-		panic("Не поддерживаемый sql driver")
+		errors.PrintSystemErr(fmt.Sprintf("%s - не поддерживаемый sql driver", cfg.Driver))
 	}
 
 	db, err := sqlx.Connect(cfg.Driver, dsn)
