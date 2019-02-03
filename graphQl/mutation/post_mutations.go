@@ -10,7 +10,7 @@ import (
 // Создание post
 func CreatePost(db *db.DB) *graphql.Field {
 	return &graphql.Field{
-		Type: types.GetQueryPostType(),
+		Type: types.GetPostType(),
 		Description: "Create new Post",
 		Args: graphql.FieldConfigArgument{
 			// перечисляем наши поля

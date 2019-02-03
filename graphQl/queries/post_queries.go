@@ -8,7 +8,7 @@ import (
 
 func GetPostById(db *db.DB) *graphql.Field {
 	return &graphql.Field{
-		Type:        types.GetQueryPostType(),
+		Type:        types.GetPostType(),
 		Description: "Get post by id",
 		// Какие аргументы необходимы для получения поста
 		Args: graphql.FieldConfigArgument{

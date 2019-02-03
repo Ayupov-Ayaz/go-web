@@ -4,7 +4,7 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
-func GetQueryPostType() *graphql.Object {
+func GetPostType() *graphql.Object {
 	return graphql.NewObject(graphql.ObjectConfig{
 		Name: "post",
 		Fields: graphql.Fields{
