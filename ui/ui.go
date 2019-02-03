@@ -3,6 +3,7 @@ package ui
 import (
 	"fmt"
 	"github.com/Ayupov-Ayaz/go-web/db"
+	"github.com/Ayupov-Ayaz/go-web/errors"
 	"github.com/Ayupov-Ayaz/go-web/graphQl"
 	"github.com/Ayupov-Ayaz/go-web/model"
 	"github.com/graphql-go/graphql"
@@ -29,7 +30,9 @@ func Start(cfg *Config, db *db.DB,  listner *net.Listener) {
 	schema := graphQl.NewGraphQlSchema(db)
 
 	routes(m, schema)
-	server.Serve(*listner)
+	if err := server.Serve(*listner); err != nil {
+		errors.PrintSystemErr(fmt.Sprintf("Не удалось запустить сервер: \n %s", err.Error()))
+	}
 }
 
 
