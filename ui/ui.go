@@ -5,7 +5,6 @@ import (
 	"github.com/Ayupov-Ayaz/go-web/db"
 	"github.com/Ayupov-Ayaz/go-web/errors"
 	"github.com/Ayupov-Ayaz/go-web/graphQl"
-	"github.com/Ayupov-Ayaz/go-web/model"
 	"github.com/graphql-go/graphql"
 	"log"
 	"net"
@@ -26,10 +25,9 @@ func Start(cfg *Config, db *db.DB,  listner *net.Listener) {
 
 	http.Handle("/assets/", http.StripPrefix(cfg.AssetsPrefix, http.FileServer(http.Dir(cfg.AssetsPath))))
 
-	m := model.New(db)
 	schema := graphQl.NewGraphQlSchema(db)
 
-	routes(m, schema)
+	routes(schema)
 	if err := server.Serve(*listner); err != nil {
 		errors.PrintSystemErr(fmt.Sprintf("Не удалось запустить сервер: \n %s", err.Error()))
 	}
@@ -37,7 +35,6 @@ func Start(cfg *Config, db *db.DB,  listner *net.Listener) {
 
 
 func executorQuery(query string, schema graphql.Schema) *graphql.Result {
-	fmt.Println(query, schema)
 	result := graphql.Do(graphql.Params{
 		Schema: schema,
 		RequestString: query,
